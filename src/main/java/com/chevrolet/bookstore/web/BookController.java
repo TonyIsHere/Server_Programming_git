@@ -24,7 +24,12 @@ public class BookController {
 	
 	@Autowired
 	private BookRepository repository;
-	@RequestMapping("/booklist")
+	
+	@Autowired
+	private CategoryRepository crepository;
+	
+	
+	@RequestMapping({"/booklist","/"})
 	public String booklist(Model model)
 	{
 		model.addAttribute("books",repository.findAll());
@@ -33,7 +38,7 @@ public class BookController {
 	@RequestMapping("/addbook")
 	public String addbook(@ModelAttribute Book book,Model model)
 	{
-		
+		model.addAttribute("myCategories",crepository.findAll());
 		return "addbook"; 
 	}
 	@PostMapping("/savebook")
@@ -54,6 +59,7 @@ public class BookController {
 	{
 		Optional<Book> item = repository.findById(bookid);
 		model.addAttribute("book", item);
+		model.addAttribute("myCategories", crepository.findAll());
 		return "editbook";
 	}
 }

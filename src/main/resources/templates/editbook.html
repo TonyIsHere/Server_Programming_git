@@ -23,6 +23,12 @@
 			Year: <input type="number" th:field="*{year}" />
 		</p>
 		<p>
+			Category : <select th:field="*{category}">
+				<option th:each="item : ${myCategories}" th:value="${item.id}"
+					th:text="${item.name}"></option>
+			</select>
+		</p>
+		<p>
 			<input type="submit" value="Update" />
 		</p>
 	</form>

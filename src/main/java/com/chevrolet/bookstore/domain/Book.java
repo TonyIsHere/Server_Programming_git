@@ -2,6 +2,8 @@ package com.chevrolet.bookstore.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.yaml.snakeyaml.constructor.Construct;
 
@@ -20,6 +22,9 @@ public class Book {
 	private String isbn;
 	private String title;
 	private int year;
+	@ManyToOne
+	@JoinColumn(name="id_category")
+	private Category category;
 	
 	public Book() {
 		
@@ -32,7 +37,14 @@ public class Book {
 		this.title = title;
 		this.year = year;
 	}
+	
+	public Book(String author,String isbn,String title,int year,Category category)
+	{
+		this(author,isbn,title,year);
+		this.category = category;
+	}
 
+	
 	@Override
 	public String toString() {
 		return "Book [id=" + id + ", author=" + author + ", isbn=" + isbn + ", title=" + title + ", year=" + year + "]";
@@ -78,8 +90,11 @@ public class Book {
 		this.year = year;
 	}
 	
-	
-	
+	public Category getCategory() {
+		return category;
+	}
 
-	
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 }
