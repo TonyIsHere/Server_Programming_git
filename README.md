@@ -27,3 +27,6 @@ body
     "year": 2020,
     "category": "http://localhost:8080/api/categories/1"
 }
+
+Get data by year
+GET http://localhost:8080/api/books/search/findByYear?year=1929

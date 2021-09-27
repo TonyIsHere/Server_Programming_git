@@ -64,7 +64,7 @@ public class BookController {
 	}
 	
 	
-    @RequestMapping("/bookss")
+    @RequestMapping("/books")
     public @ResponseBody List<Book> bookListRest() {	
         return (List<Book>) repository.findAll();
     }    
