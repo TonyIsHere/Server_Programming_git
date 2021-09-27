@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.websocket.server.PathParam;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.chevrolet.bookstore.domain.*;
 
-import org.springframework.ui.Model;
 
 @Controller
 public class BookController {
@@ -61,5 +61,17 @@ public class BookController {
 		model.addAttribute("book", item);
 		model.addAttribute("myCategories", crepository.findAll());
 		return "editbook";
+	}
+	
+	
+    @RequestMapping("/bookss")
+    public @ResponseBody List<Book> bookListRest() {	
+        return (List<Book>) repository.findAll();
+    }    
+	
+	@RequestMapping("/book/{id}")
+	public @ResponseBody Optional<Book> getbookRest(@PathVariable("id") Long id)
+	{
+		return repository.findById(id);
 	}
 }
