@@ -12,6 +12,7 @@ import java.util.Optional;
 import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +50,7 @@ public class BookController {
 	}
 	
 	@RequestMapping("/delete/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public String delete(@PathVariable("id") Long bookid,Model model)
 	{
 		repository.deleteById(bookid);
@@ -73,5 +75,10 @@ public class BookController {
 	public @ResponseBody Optional<Book> getbookRest(@PathVariable("id") Long id)
 	{
 		return repository.findById(id);
+	}
+	@RequestMapping({"/login"})
+	public String login(Model model)
+	{
+		return "login"; 
 	}
 }

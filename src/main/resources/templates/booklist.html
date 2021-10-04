@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
-	<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<title>Server Programming</title>
-	</head>
-	<body>
-		<h1>Books</h1>
-		<table class="table table-striped">
+<!--  <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+	crossorigin="anonymous">
+<title>Server Programming</title>
+</head>
+<form th:action="@{/logout}" method="post">
+	<input class="btn btn-primary" type="submit" value="Sign Out" />
+</form>
+<h3 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h3>
+<body>
+	<h1>Books</h1>
+	<table class="table table-striped">
 		<tr>
-		<th>Author</th>
-		<th>Title</th>
-		<th>ISBN</th>
-		<th>Year</th>
-		<th>Category</th>
-		<th>Action</th>
+			<th>Author</th>
+			<th>Title</th>
+			<th>ISBN</th>
+			<th>Year</th>
+			<th>Category</th>
+			<th>Action</th>
 		</tr>
 		<tr th:each="item : ${books}">
-		<td th:text="${item.author}"></td>
-		<td th:text="${item.title}"></td>
-		<td th:text="${item.isbn}"></td>
-		<td th:text="${item.year}"></td>
-		<td th:text="${item.category.name}"></td>
-		<td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}" >Delete</a> <a class="btn btn-primary" th:href="@{/edit/{id}(id=${item.id})}">Edit</a></td>
+			<td th:text="${item.author}"></td>
+			<td th:text="${item.title}"></td>
+			<td th:text="${item.isbn}"></td>
+			<td th:text="${item.year}"></td>
+			<td th:text="${item.category.name}"></td>
+			<td><a sec:authorize="hasRole('ADMIN')" class="btn btn-danger"
+				th:href="@{/delete/{id}(id=${item.id})}">Delete</a> <a
+				class="btn btn-primary" th:href="@{/edit/{id}(id=${item.id})}">Edit</a></td>
 		</tr>
-		</table>
-		<a class="btn btn-success" href="/addbook">Add book</a>
-	</body>
+	</table>
+	<a class="btn btn-success" href="/addbook">Add book</a>
+</body>
 </html>
