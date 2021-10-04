@@ -12,6 +12,8 @@ import com.chevrolet.bookstore.domain.Book;
 import com.chevrolet.bookstore.domain.BookRepository;
 import com.chevrolet.bookstore.domain.Category;
 import com.chevrolet.bookstore.domain.CategoryRepository;
+import com.chevrolet.bookstore.domain.User;
+import com.chevrolet.bookstore.domain.UserRepository;
 
 
 @SpringBootApplication
@@ -24,7 +26,7 @@ public class BookstoreApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner demo(BookRepository repository,CategoryRepository crepository) {
+	public CommandLineRunner demo(BookRepository repository,CategoryRepository crepository,UserRepository urepository) {
 		return (args) -> {
 			Category c1 = new Category("Horror");
 			crepository.save(c1);
@@ -42,6 +44,14 @@ public class BookstoreApplication {
 			for (Book b : dataBook) {
 				log.info(b.toString());
 			}
+			
+			// Create users: admin/admin user/user
+			User user1 = new User("user",
+			"$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
+			User user2 = new User("admin",
+			"$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
+			urepository.save(user1);
+			urepository.save(user2);
 		};
 		}
 }

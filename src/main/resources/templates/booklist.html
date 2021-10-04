@@ -31,7 +31,8 @@
 			<td th:text="${item.isbn}"></td>
 			<td th:text="${item.year}"></td>
 			<td th:text="${item.category.name}"></td>
-			<td><a sec:authorize="hasRole('ADMIN')" class="btn btn-danger"
+			<!-- hasRole('ADMIN') for user instead inside app and hasAuthority when it's from DB  -->
+			<td><a sec:authorize="hasAuthority('ADMIN')" class="btn btn-danger"
 				th:href="@{/delete/{id}(id=${item.id})}">Delete</a> <a
 				class="btn btn-primary" th:href="@{/edit/{id}(id=${item.id})}">Edit</a></td>
 		</tr>
