@@ -41,7 +41,7 @@ public class BookController {
 	{
 		model.addAttribute("myCategories",crepository.findAll());
 		return "addbook"; 
-	}
+	} 
 	@PostMapping("/savebook")
 	public String postAddbook(@ModelAttribute Book book,Model model)
 	{
@@ -49,8 +49,9 @@ public class BookController {
 		return "redirect:/booklist";
 	}
 	
+	@PreAuthorize("hasAuthority('ADMIN')") //Importante before requestmapping
 	@RequestMapping("/delete/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public String delete(@PathVariable("id") Long bookid,Model model)
 	{
 		repository.deleteById(bookid);
